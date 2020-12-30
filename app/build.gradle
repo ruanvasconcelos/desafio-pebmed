@@ -20,8 +20,20 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
+            buildConfigField 'String', 'HOST', '"https://private-54fe53-pebmeddesafio.apiary-mock.com/"'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            applicationIdSuffix '.debug'
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled false
+            buildConfigField 'String', 'HOST', '"https://private-54fe53-pebmeddesafio.apiary-mock.com/"'
         }
     }
     compileOptions {
