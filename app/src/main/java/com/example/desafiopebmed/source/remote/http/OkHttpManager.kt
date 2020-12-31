@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 class OkHttpManager {
 
     companion object {
-        private const val CACHE_NAME = "NOTICIA"
+        private const val CACHE_NAME = "DesafioPEBMED"
         private const val DISK_CACHE_SIZE = 50 * 1024 * 1024L
         private const val TIME_OUT = 20L
     }
