@@ -1,21 +1,8 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# The cause is that R8 tries to remove the method and inline it at the single call site.
+# So, if our app calls RunnableDisposable.constructor from multiple places, this issue doesn't happen.
+# FORCE inlining on non-inlinable: void io.reactivex.rxjava3.disposables.RunnableDisposable.constructor$io$reactivex$rxjava3$disposables$ReferenceDisposable(java.lang.Object)
+-keep class io.reactivex.rxjava3.disposables.RunnableDisposable { <init>(...); }
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
-
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
-
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# OkHttp platform used only on JVM and when Conscrypt dependency is available.
+# Missing class: org.conscrypt.ConscryptHostnameVerifier
+-dontwarn org.conscrypt.ConscryptHostnameVerifier
