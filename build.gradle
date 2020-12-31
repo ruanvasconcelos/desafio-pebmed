@@ -36,6 +36,8 @@ ext{
     retrofit_version = "2.9.0"
     logging_interceptor_version = "4.9.0"
     lifecycleVersion = '2.2.0'
+    rxJavaVersion = '3.0.7'
+    rxAndroidVersion = '3.0.0'
 
     junit_version = "4.13.1"
     androidx_junit_version = "1.1.2"
