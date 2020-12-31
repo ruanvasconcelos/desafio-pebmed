@@ -18,6 +18,15 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        release {
+            storeFile file(STORE_FILE_RELEASE)
+            keyAlias KEY_ALIAS_RELEASE
+            storePassword STORE_PASSWORD_RELEASE
+            keyPassword KEY_PASSWORD_RELEASE
+        }
+    }
+
     buildTypes {
         release {
             debuggable false
@@ -26,6 +35,7 @@ android {
             zipAlignEnabled true
             buildConfigField 'String', 'HOST', '"https://private-54fe53-pebmeddesafio.apiary-mock.com/"'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
         debug {
             applicationIdSuffix '.debug'
@@ -36,6 +46,7 @@ android {
             buildConfigField 'String', 'HOST', '"https://private-54fe53-pebmeddesafio.apiary-mock.com/"'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
