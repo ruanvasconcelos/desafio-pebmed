@@ -9,17 +9,18 @@ import com.example.desafiopebmed.viewmodel.utils.ViewData
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
 
-class MedicalListViewModel : ViewModel(), LifecycleObserver {
+class MedicalListViewModel @Inject constructor(
+    internal val compositeDisposable: CompositeDisposable,
+    private val repository: MedicalListRepository
+) : ViewModel(), LifecycleObserver {
 
     val liveDataMedicalList: MutableSingleLiveData<ViewData<List<RootVO>>> =
         MutableSingleLiveData()
 
-    private val compositeDisposable = CompositeDisposable()
-    private val medicalListRepository = MedicalListRepository()
-
     fun loadMedicalList() =
-        compositeDisposable.add(medicalListRepository
+        compositeDisposable.add(repository
             .recoverMedicalList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

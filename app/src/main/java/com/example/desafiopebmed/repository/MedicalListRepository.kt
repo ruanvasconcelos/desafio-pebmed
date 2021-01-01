@@ -1,17 +1,22 @@
 package com.example.desafiopebmed.repository
 
-import com.example.desafiopebmed.repository.vo.*
-import com.example.desafiopebmed.source.remote.data.*
-import com.example.desafiopebmed.source.remote.http.WebServiceManager
+import com.example.desafiopebmed.repository.vo.AuthorVO
+import com.example.desafiopebmed.repository.vo.CategoryVO
+import com.example.desafiopebmed.repository.vo.ContentVO
+import com.example.desafiopebmed.repository.vo.RootVO
+import com.example.desafiopebmed.source.remote.data.Author
+import com.example.desafiopebmed.source.remote.data.Category
+import com.example.desafiopebmed.source.remote.data.Content
+import com.example.desafiopebmed.source.remote.data.Root
+import com.example.desafiopebmed.source.remote.http.WebServiceAPI
 import io.reactivex.rxjava3.core.Observable
+import javax.inject.Inject
 
 
-class MedicalListRepository {
-    private val webServiceManager = WebServiceManager.instance
+class MedicalListRepository  @Inject constructor(private val webServiceAPI: WebServiceAPI) {
 
     fun recoverMedicalList(): Observable<List<RootVO>> =
-        webServiceManager
-            .webServiceAPI
+        webServiceAPI
             .getMedicalList()
             .map {
                 transformToRootVOList(it)
