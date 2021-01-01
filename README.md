@@ -1,4 +1,4 @@
-# desafio-pebmed
+# Desafio PEBMED
 
 # MedBook
 Um app acessível de doenças e suas informações.
