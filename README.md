@@ -1,4 +1,4 @@
-# desafio-pebmed
+# Desafio PEBMED
 
 # MedBook
 Um app acessível de doenças e suas informações.
@@ -12,6 +12,12 @@ Abaixo estará indicado especificações técnicas e quais foram as principais b
 - Google Play Services
 
 ### Bibliotecas
+- Constraint Layout
+- Architecture Components   
+- Retrofit
+- Gson Converter
+- Rx Java
+- Rx Android
 
 ## Autor
 - Ruan Vasconcelos
