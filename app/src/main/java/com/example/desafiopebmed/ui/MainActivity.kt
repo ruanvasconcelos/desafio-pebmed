@@ -3,29 +3,30 @@ package com.example.desafiopebmed.ui
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.example.desafiopebmed.R
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.example.desafiopebmed.databinding.ActivityMainBinding
 import com.example.desafiopebmed.viewmodel.MedicalListViewModel
 import com.example.desafiopebmed.viewmodel.utils.ViewData
-import androidx.lifecycle.Observer
+import dagger.android.support.DaggerAppCompatActivity
+import javax.inject.Inject
 
-class MainActivity : BaseActivity() {
+class MainActivity : DaggerAppCompatActivity() {
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
     private val medicalListViewModel: MedicalListViewModel by viewModels { viewModelFactory }
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         with(medicalListViewModel) {
             lifecycle.addObserver(this)
             observePageContent(this)
         }
         medicalListViewModel.loadMedicalList()
-    }
-
-    override fun layoutResource(): Int = R.layout.activity_main
-
-    override fun setupView() {
-        
     }
 
     private fun observePageContent(medicalListViewModel: MedicalListViewModel) =
