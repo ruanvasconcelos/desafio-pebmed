@@ -18,6 +18,7 @@ Abaixo estará indicado especificações técnicas e quais foram as principais b
 - Gson Converter
 - Rx Java
 - Rx Android
+- Dagger
 
 ## Autor
 - Ruan Vasconcelos
