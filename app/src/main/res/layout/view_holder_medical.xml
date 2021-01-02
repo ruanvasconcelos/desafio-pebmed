@@ -1,10 +1,10 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    card_view:cardCornerRadius="4dp">
+    android:layout_centerHorizontal="true"
+    style="@style/ViewHolderMedicalRootView">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,10 +12,11 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/content_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            tools:src="@drawable/ic_launcher_foreground" />
+            style="@style/ViewHolderMedicalImageView"
+            tools:src="@drawable/ic_launcher_background" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/content_title"
@@ -23,10 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/content_image"
             android:layout_centerHorizontal="true"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
+            style="@style/ViewHolderMedicalTextView"
             tools:text="Título" />
-
     </RelativeLayout>
 
 
