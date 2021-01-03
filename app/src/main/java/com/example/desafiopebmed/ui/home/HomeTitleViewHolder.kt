@@ -1,21 +1,21 @@
-package com.example.desafiopebmed.ui
+package com.example.desafiopebmed.ui.home
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.desafiopebmed.databinding.ViewHolderMedicalBinding
 import com.example.desafiopebmed.repository.vo.ItemVO
+import com.example.desafiopebmed.ui.OnRecyclerViewListener
 
-class MedicalListViewHolder(
+class HomeTitleViewHolder(
     itemView: ViewHolderMedicalBinding,
     private val onItemClickListener: OnRecyclerViewListener.OnItemClickListener
 ) : RecyclerView.ViewHolder(itemView.root), View.OnClickListener {
 
-    private var imageView = itemView.contentImage
     private var textView = itemView.contentTitle
 
     init {
-        itemView.cardView.setOnClickListener(this@MedicalListViewHolder)
+        itemView.cardView.setOnClickListener(this@HomeTitleViewHolder)
     }
 
     fun bind(data: ItemVO) {
@@ -24,6 +24,6 @@ class MedicalListViewHolder(
     }
 
     override fun onClick(view: View) {
-        onItemClickListener.onItemClick(view, this@MedicalListViewHolder.adapterPosition)
+        onItemClickListener.onItemClick(view, this@HomeTitleViewHolder.adapterPosition)
     }
 }

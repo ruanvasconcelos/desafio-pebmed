@@ -1,4 +1,4 @@
-package com.example.desafiopebmed.ui
+package com.example.desafiopebmed.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,11 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.desafiopebmed.databinding.ViewHolderMedicalBinding
 import com.example.desafiopebmed.repository.vo.ItemVO
+import com.example.desafiopebmed.ui.OnRecyclerViewListener
 
-class MedicalListAdapter(
+class HomeAdapter(
     private val onItemClickListener: OnRecyclerViewListener.OnItemClickListener,
 ) :
-    ListAdapter<ItemVO, MedicalListViewHolder>(object :
+    ListAdapter<ItemVO, HomeThumbViewHolder>(object :
         DiffUtil.ItemCallback<ItemVO>() {
         override fun areItemsTheSame(oldItem: ItemVO, newItem: ItemVO) =
             oldItem.category?.name == newItem.category?.name
@@ -19,12 +20,12 @@ class MedicalListAdapter(
             oldItem == newItem
     }) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MedicalListViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeThumbViewHolder {
         val itemBinding = ViewHolderMedicalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MedicalListViewHolder(itemBinding, onItemClickListener)
+        return HomeThumbViewHolder(itemBinding, onItemClickListener)
     }
 
-    override fun onBindViewHolder(holder: MedicalListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: HomeThumbViewHolder, position: Int) {
         holder.bind(currentList[position])
     }
 }

@@ -1,23 +1,23 @@
-package com.example.desafiopebmed.ui
+package com.example.desafiopebmed.ui.home
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.desafiopebmed.databinding.ActivityMainBinding
+import com.example.desafiopebmed.ui.OnRecyclerViewListener
 import com.example.desafiopebmed.viewmodel.MedicalListViewModel
 import com.example.desafiopebmed.viewmodel.utils.ViewData
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-class MainActivity : DaggerAppCompatActivity(), OnRecyclerViewListener.OnItemClickListener {
+class HomeActivity : DaggerAppCompatActivity(), OnRecyclerViewListener.OnItemClickListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var binding: ActivityMainBinding
-    private var medicalListAdapter = MedicalListAdapter(this)
+    private var medicalListAdapter = HomeAdapter(this)
     private val medicalListViewModel: MedicalListViewModel by viewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +32,7 @@ class MainActivity : DaggerAppCompatActivity(), OnRecyclerViewListener.OnItemCli
         medicalListViewModel.loadMedicalList()
 
         binding.recyclerView.apply {
-            layoutManager = GridLayoutManager(this@MainActivity, 2)
+            layoutManager = GridLayoutManager(this@HomeActivity, 2)
             adapter = medicalListAdapter
         }
     }
