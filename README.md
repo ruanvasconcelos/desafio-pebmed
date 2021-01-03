@@ -19,6 +19,7 @@ Abaixo estará indicado especificações técnicas e quais foram as principais b
 - Rx Java
 - Rx Android
 - Dagger
+- Glide
 
 ## Autor
 - Ruan Vasconcelos
