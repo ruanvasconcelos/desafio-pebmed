@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.desafiopebmed.databinding.ActivityMainBinding
 import com.example.desafiopebmed.repository.vo.ComponentType
 import com.example.desafiopebmed.ui.OnRecyclerViewListener
+import com.example.desafiopebmed.ui.gone
+import com.example.desafiopebmed.ui.visible
 import com.example.desafiopebmed.viewmodel.MedicalListViewModel
 import com.example.desafiopebmed.viewmodel.utils.ViewData
 import dagger.android.support.DaggerAppCompatActivity
@@ -57,8 +59,25 @@ class HomeActivity : DaggerAppCompatActivity(), OnRecyclerViewListener.OnItemCli
     private fun observePageContent(medicalListViewModel: MedicalListViewModel) =
         medicalListViewModel.liveDataMedicalList.observe(this,
             {
-                if (it?.status == ViewData.Status.COMPLETE) {
-                    medicalListAdapter.submitList(it.data)
+                when (it?.status) {
+                    ViewData.Status.LOADING -> {
+                        binding.progressBar.visible()
+                        binding.recyclerView.gone()
+                        // Esconder View de erro
+                        // Esconder View de empty state
+                    }
+
+                    ViewData.Status.COMPLETE -> {
+                        binding.progressBar.gone()
+                        medicalListAdapter.submitList(it.data)
+                        binding.recyclerView.visible()
+                        // Caso a lista esteja vazia, apresentar empty state
+                    }
+
+                    ViewData.Status.ERROR -> {
+                        binding.progressBar.gone()
+                        // Apresentar view de erro
+                    }
                 }
             })
 

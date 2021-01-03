@@ -31,7 +31,7 @@ class HomeAdapter(
                     parent,
                     false
                 )
-                HomeTitleViewHolder(binding, onItemClickListener)
+                HomeTitleViewHolder(binding)
             }
 
             else -> {
