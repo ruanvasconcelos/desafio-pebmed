@@ -5,7 +5,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.desafiopebmed.databinding.ActivityMainBinding
+import com.example.desafiopebmed.databinding.ActivityHomeBinding
 import com.example.desafiopebmed.repository.vo.ComponentType
 import com.example.desafiopebmed.ui.OnRecyclerViewListener
 import com.example.desafiopebmed.ui.gone
@@ -19,13 +19,13 @@ class HomeActivity : DaggerAppCompatActivity(), OnRecyclerViewListener.OnItemCli
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityHomeBinding
     private var medicalListAdapter = HomeAdapter(this)
     private val medicalListViewModel: MedicalListViewModel by viewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         with(medicalListViewModel) {
