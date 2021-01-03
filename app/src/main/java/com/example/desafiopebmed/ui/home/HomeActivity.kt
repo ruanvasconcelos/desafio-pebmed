@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.desafiopebmed.databinding.ActivityMainBinding
+import com.example.desafiopebmed.repository.vo.ComponentType
 import com.example.desafiopebmed.ui.OnRecyclerViewListener
 import com.example.desafiopebmed.viewmodel.MedicalListViewModel
 import com.example.desafiopebmed.viewmodel.utils.ViewData
@@ -31,8 +32,24 @@ class HomeActivity : DaggerAppCompatActivity(), OnRecyclerViewListener.OnItemCli
         }
         medicalListViewModel.loadMedicalList()
 
+        setupView()
+    }
+
+    private fun setupView() {
+        val gridlayoutManager = GridLayoutManager(this@HomeActivity, 2).apply {
+            spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    return if (position < medicalListAdapter.currentList.size
+                        && medicalListAdapter.getItemViewType(position) == ComponentType.GRID_THUMB.ordinal
+                    ) {
+                        1
+                    } else spanCount
+                }
+            }
+        }
+
         binding.recyclerView.apply {
-            layoutManager = GridLayoutManager(this@HomeActivity, 2)
+            layoutManager = gridlayoutManager
             adapter = medicalListAdapter
         }
     }
