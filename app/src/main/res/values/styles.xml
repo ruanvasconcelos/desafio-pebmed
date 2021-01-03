@@ -26,4 +26,29 @@
         <item name="android:textSize">@dimen/textsize_fourteen</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <!-- Details Activity -->
+    <style name="DetailsActivityCoordinatorImage">
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="DetailsActivityDetailsContainer">
+        <item name="android:layout_marginLeft">@dimen/spacing_sixteen</item>
+    </style>
+
+    <style name="DetailsActivitySectionTitle">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/textsize_fourteen</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:layout_marginTop">@dimen/spacing_sixteen</item>
+        <item name="android:paddingBottom">@dimen/spacing_sixteen</item>
+    </style>
+
+    <style name="DetailsActivitySectionContent">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/textsize_eleven</item>
+        <item name="android:paddingBottom">@dimen/spacing_sixteen</item>
+    </style>
 </resources>

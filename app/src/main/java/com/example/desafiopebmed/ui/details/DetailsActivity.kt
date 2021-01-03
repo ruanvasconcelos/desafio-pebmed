@@ -3,14 +3,17 @@ package com.example.desafiopebmed.ui.details
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.example.desafiopebmed.databinding.ActivityDetailsBinding
+import com.example.desafiopebmed.repository.vo.AuthorVO
 import com.example.desafiopebmed.repository.vo.ContentVO
 import com.example.desafiopebmed.ui.OnRecyclerViewListener
 import dagger.android.support.DaggerAppCompatActivity
+import java.util.*
 
 class DetailsActivity : DaggerAppCompatActivity(), OnRecyclerViewListener.OnItemClickListener {
 
     companion object{
         const val CONTENT_EXTRA = "CONTENT_EXTRA"
+        const val LINE_BREAK = "\n"
     }
     private lateinit var binding: ActivityDetailsBinding
     private var contentVO : ContentVO? = null
@@ -25,13 +28,25 @@ class DetailsActivity : DaggerAppCompatActivity(), OnRecyclerViewListener.OnItem
 
     private fun setupView() {
         handleIntent()
+
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        binding.collapsingToolbar.title = contentVO?.name
-        binding.detailsTitle.text = contentVO?.description
         Glide.with(this).load(contentVO?.urlImage).into(binding.image)
+        binding.collapsingToolbar.title = contentVO?.name
+
+        binding.detailsDescriptionContent.text = contentVO?.description
+        binding.detailsAuthorsContent.text = buildAuthorList(contentVO?.authors)
+
+    }
+
+    private fun buildAuthorList(authors: List<AuthorVO>?): String {
+        var authorsText = ""
+        authors?.forEach { person ->
+            authorsText = authorsText.plus(person.name?.capitalize(Locale.getDefault())).plus(LINE_BREAK)
+        }
+        return authorsText
     }
 
     private fun handleIntent() {

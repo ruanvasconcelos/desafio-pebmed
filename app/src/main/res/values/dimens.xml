@@ -2,10 +2,12 @@
 <resources>
     <!-- Spacing -->
     <dimen name="spacing_sixteen">16dp</dimen>
+    <dimen name="spacing_sixty">60dp</dimen>
 
     <!-- Text size -->
     <dimen name="textsize_ten">10dp</dimen>
     <dimen name="textsize_eleven">11dp</dimen>
+    <dimen name="textsize_twelve">12dp</dimen>
     <dimen name="textsize_fourteen">14dp</dimen>
     <dimen name="textsize_sixteen">16dp</dimen>
 
