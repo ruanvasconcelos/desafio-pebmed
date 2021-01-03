@@ -11,7 +11,7 @@ class HomeTitleViewHolder(
     private var textView = itemView.title
 
     fun bind(data: ItemVO) {
-        textView.text = data.category?.name
+        textView.text = data.category?.name?.toUpperCase()
     }
 
 }
