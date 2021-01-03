@@ -7,5 +7,5 @@ import kotlinx.parcelize.Parcelize
 data class ItemVO(
     val category: CategoryVO? = null,
     val content: ContentVO? = null,
-    val componentType: ComponentType? = ComponentType.UNKNOWN
+    val componentType: ComponentType = ComponentType.UNKNOWN
 ) : Parcelable

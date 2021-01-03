@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Spacing -->
     <dimen name="spacing_sixteen">16dp</dimen>
 
+    <!-- Text size -->
     <dimen name="textsize_eleven">11dp</dimen>
+    <dimen name="textsize_sixteen">16dp</dimen>
 </resources>
