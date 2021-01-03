@@ -16,7 +16,7 @@ class HomeThumbViewHolder(
     private var textView = itemView.contentTitle
 
     init {
-        itemView.cardView.setOnClickListener(this@HomeThumbViewHolder)
+        itemView.root.setOnClickListener(this@HomeThumbViewHolder)
     }
 
     fun bind(data: ItemVO) {

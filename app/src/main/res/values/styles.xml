@@ -15,7 +15,7 @@
 
     <style name="HomeThumbViewHolderTextView">
         <item name="android:textColor">@android:color/black</item>
-        <item name="android:textSize">@dimen/textsize_ten</item>
+        <item name="android:textSize">@dimen/textsize_twelve</item>
     </style>
 
     <!-- Home Title View Holder -->
@@ -25,6 +25,8 @@
         <item name="android:textColor">@android:color/black</item>
         <item name="android:textSize">@dimen/textsize_fourteen</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+
     </style>
 
     <!-- Details Activity -->
@@ -48,7 +50,7 @@
 
     <style name="DetailsActivitySectionContent">
         <item name="android:textColor">@android:color/black</item>
-        <item name="android:textSize">@dimen/textsize_eleven</item>
+        <item name="android:textSize">@dimen/textsize_twelve</item>
         <item name="android:paddingBottom">@dimen/spacing_sixteen</item>
     </style>
 </resources>
