@@ -84,7 +84,10 @@ class HomeActivity : DaggerAppCompatActivity(), OnRecyclerViewListener.OnItemCli
             })
 
     override fun onItemClick(view: View, position: Int) {
-        // chamar detalhes
-        startActivity(Intent(this, DetailsActivity::class.java))
+        val itemClickedContentVO = medicalListAdapter.currentList[position]?.content
+
+        val intent = Intent(this, DetailsActivity::class.java)
+        intent.putExtra(DetailsActivity.CONTENT_EXTRA, itemClickedContentVO)
+        startActivity(intent)
     }
 }
