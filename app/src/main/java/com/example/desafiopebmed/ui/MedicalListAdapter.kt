@@ -5,17 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.desafiopebmed.databinding.ViewHolderMedicalBinding
-import com.example.desafiopebmed.repository.vo.RootVO
+import com.example.desafiopebmed.repository.vo.ItemVO
 
 class MedicalListAdapter(
     private val onItemClickListener: OnRecyclerViewListener.OnItemClickListener,
 ) :
-    ListAdapter<RootVO, MedicalListViewHolder>(object :
-        DiffUtil.ItemCallback<RootVO>() {
-        override fun areItemsTheSame(oldItem: RootVO, newItem: RootVO) =
+    ListAdapter<ItemVO, MedicalListViewHolder>(object :
+        DiffUtil.ItemCallback<ItemVO>() {
+        override fun areItemsTheSame(oldItem: ItemVO, newItem: ItemVO) =
             oldItem.category?.name == newItem.category?.name
 
-        override fun areContentsTheSame(oldItem: RootVO, newItem: RootVO) =
+        override fun areContentsTheSame(oldItem: ItemVO, newItem: ItemVO) =
             oldItem == newItem
     }) {
 

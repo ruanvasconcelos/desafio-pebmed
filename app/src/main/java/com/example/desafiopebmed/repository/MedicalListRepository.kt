@@ -1,9 +1,6 @@
 package com.example.desafiopebmed.repository
 
-import com.example.desafiopebmed.repository.vo.AuthorVO
-import com.example.desafiopebmed.repository.vo.CategoryVO
-import com.example.desafiopebmed.repository.vo.ContentVO
-import com.example.desafiopebmed.repository.vo.RootVO
+import com.example.desafiopebmed.repository.vo.*
 import com.example.desafiopebmed.source.remote.data.Author
 import com.example.desafiopebmed.source.remote.data.Category
 import com.example.desafiopebmed.source.remote.data.Content
@@ -13,25 +10,61 @@ import io.reactivex.rxjava3.core.Observable
 import javax.inject.Inject
 
 
-class MedicalListRepository  @Inject constructor(private val webServiceAPI: WebServiceAPI) {
+class MedicalListRepository @Inject constructor(private val webServiceAPI: WebServiceAPI) {
 
-    fun recoverMedicalList(): Observable<List<RootVO>> =
+    fun recoverMedicalList(): Observable<List<ItemVO>> =
         webServiceAPI
             .getMedicalList()
             .map {
-                transformToRootVOList(it)
+                transformToItemVOList(it)
             }
 
-    private fun transformToRootVOList(roots: List<Root>?) =
-        roots?.map {
-            val category = it.category
-            val content = it.content
+    /**
+     * Transforma o objeto de retorno do backend numa lista onde as categorias e demais itens
+     * estão separados de forma clara.
+     *
+     * As categorias são adicionadas na nova lista com o type ComponentType.HEADER_TITLE
+     * Os demais itens são adicionados na nova lista com o type ComponentType.GRID_THUMB
+     *
+     * @param itemVOList Lista de itens que podem ser do tipo Título de agrupador ou Thumb do Grid
+     * @param category Categoria retornada do backend
+     */
+    private fun transformToItemVOList(roots: List<Root>?): List<ItemVO> {
+        val itemVOList = ArrayList<ItemVO>()
 
-            RootVO(
-                transformToCategoryVO(category),
-                transformToContentVO(content)
+        roots?.map { root ->
+            if (isNewCategory(itemVOList, root.category)) {
+                itemVOList.add(
+                    ItemVO(
+                        category = transformToCategoryVO(root.category),
+                        componentType = ComponentType.HEADER_TITLE
+                    )
+                )
+            }
+
+            itemVOList.add(
+                ItemVO(
+                    content = transformToContentVO(root.content),
+                    componentType = ComponentType.GRID_THUMB
+                )
             )
         }
+        return itemVOList
+    }
+
+    /**
+     * Verifica se a categoria em questão existe dentro da lista de Itens.
+     *
+     * @param itemVOList Lista de itens que podem ser do tipo Título de agrupador ou Thumb do Grid
+     * @param category Categoria retornada do backend
+     */
+    private fun isNewCategory(itemVOList: ArrayList<ItemVO>, category: Category?): Boolean {
+        val categoryWeLookFor = itemVOList.find {
+            it.componentType == ComponentType.HEADER_TITLE
+                && it.category?.id == category?.id
+        }
+        return categoryWeLookFor == null
+    }
 
     private fun transformToContentVO(content: Content?) =
         ContentVO(

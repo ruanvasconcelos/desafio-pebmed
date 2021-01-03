@@ -3,7 +3,7 @@ package com.example.desafiopebmed.viewmodel
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel
 import com.example.desafiopebmed.repository.MedicalListRepository
-import com.example.desafiopebmed.repository.vo.RootVO
+import com.example.desafiopebmed.repository.vo.ItemVO
 import com.example.desafiopebmed.viewmodel.utils.MutableSingleLiveData
 import com.example.desafiopebmed.viewmodel.utils.ViewData
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -16,7 +16,7 @@ class MedicalListViewModel @Inject constructor(
     private val repository: MedicalListRepository
 ) : ViewModel(), LifecycleObserver {
 
-    val liveDataMedicalList: MutableSingleLiveData<ViewData<List<RootVO>>> =
+    val liveDataMedicalList: MutableSingleLiveData<ViewData<List<ItemVO>>> =
         MutableSingleLiveData()
 
     fun loadMedicalList() =

@@ -4,7 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.desafiopebmed.databinding.ViewHolderMedicalBinding
-import com.example.desafiopebmed.repository.vo.RootVO
+import com.example.desafiopebmed.repository.vo.ItemVO
 
 class MedicalListViewHolder(
     itemView: ViewHolderMedicalBinding,
@@ -18,7 +18,7 @@ class MedicalListViewHolder(
         itemView.cardView.setOnClickListener(this@MedicalListViewHolder)
     }
 
-    fun bind(data: RootVO) {
+    fun bind(data: ItemVO) {
         Glide.with(itemView.context).load(data.content?.urlImage).into(imageView)
         textView.text = data.content?.name
     }
