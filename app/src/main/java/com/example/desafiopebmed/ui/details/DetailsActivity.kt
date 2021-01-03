@@ -1,6 +1,7 @@
 package com.example.desafiopebmed.ui.details
 
 import android.os.Bundle
+import android.view.MenuItem
 import com.bumptech.glide.Glide
 import com.example.desafiopebmed.databinding.ActivityDetailsBinding
 import com.example.desafiopebmed.repository.vo.AuthorVO
@@ -51,5 +52,16 @@ class DetailsActivity : DaggerAppCompatActivity(), OnRecyclerViewListener.OnItem
 
     private fun handleIntent() {
         contentVO = intent.extras?.get(CONTENT_EXTRA) as ContentVO?
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
