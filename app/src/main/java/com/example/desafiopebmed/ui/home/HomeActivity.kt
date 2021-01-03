@@ -1,5 +1,6 @@
 package com.example.desafiopebmed.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.desafiopebmed.databinding.ActivityHomeBinding
 import com.example.desafiopebmed.repository.vo.ComponentType
 import com.example.desafiopebmed.ui.OnRecyclerViewListener
+import com.example.desafiopebmed.ui.details.DetailsActivity
 import com.example.desafiopebmed.ui.gone
 import com.example.desafiopebmed.ui.visible
 import com.example.desafiopebmed.viewmodel.MedicalListViewModel
@@ -83,5 +85,6 @@ class HomeActivity : DaggerAppCompatActivity(), OnRecyclerViewListener.OnItemCli
 
     override fun onItemClick(view: View, position: Int) {
         // chamar detalhes
+        startActivity(Intent(this, DetailsActivity::class.java))
     }
 }
