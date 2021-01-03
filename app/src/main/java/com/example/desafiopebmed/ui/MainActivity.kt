@@ -1,6 +1,7 @@
 package com.example.desafiopebmed.ui
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -40,8 +41,11 @@ class MainActivity : DaggerAppCompatActivity(), OnRecyclerViewListener.OnItemCli
         medicalListViewModel.liveDataMedicalList.observe(this,
             {
                 if (it?.status == ViewData.Status.COMPLETE) {
-                    Toast.makeText(this, "Complete "+it.data?.size, Toast.LENGTH_SHORT).show()
                     medicalListAdapter.submitList(it.data)
                 }
             })
+
+    override fun onItemClick(view: View, position: Int) {
+        // chamar detalhes
+    }
 }
