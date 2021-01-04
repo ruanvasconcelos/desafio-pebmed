@@ -1,7 +1,7 @@
 # Desafio PEBMED
 
 # MedBook
-Um app acessível de doenças e suas informações.
+Um app acessível de informações médicas.
 
 <img src="https://github.com/ruanvasconcelos/desafio-pebmed/blob/master/print/home.jpg" width="200" height="400" align="left" />
 <img src="https://github.com/ruanvasconcelos/desafio-pebmed/blob/master/print/details.jpg" width="200" height="400" align="left" /> 
