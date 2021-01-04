@@ -12,6 +12,9 @@ interface ItemListDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(items: List<ItemEntity>)
 
+    @Query("SELECT * FROM medicalList WHERE contentId = :id")
+    fun itemByContentId(id: Int?): Single<ItemEntity>
+
     @Query("SELECT * FROM medicalList")
     fun getAll(): Single<List<ItemEntity>>
 

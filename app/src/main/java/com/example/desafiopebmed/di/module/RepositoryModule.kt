@@ -1,5 +1,6 @@
 package com.example.desafiopebmed.di.module
 
+import com.example.desafiopebmed.repository.DetailsRepository
 import com.example.desafiopebmed.repository.MedicalListRepository
 import com.example.desafiopebmed.source.local.Database
 import com.example.desafiopebmed.source.remote.http.WebServiceAPI
@@ -14,4 +15,9 @@ class RepositoryModule {
         webServiceAPI: WebServiceAPI,
         dataBase: Database
     ) = MedicalListRepository(webServiceAPI, dataBase)
+
+    @Provides
+    fun providesDetailsRepository(
+        dataBase: Database
+    ) = DetailsRepository(dataBase)
 }
