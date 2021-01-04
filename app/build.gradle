@@ -23,6 +23,13 @@ android {
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation":
+                                      "$projectDir/schemas".toString()]
+            }
+        }
     }
 
     signingConfigs {
@@ -84,6 +91,10 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+    implementation "androidx.room:room-runtime:$archVersion"
+    implementation "androidx.room:room-rxjava3:$archVersion"
+    kapt "androidx.room:room-compiler:$archVersion"
 
     implementation "androidx.activity:activity-ktx:$activityTXVersion"
 
