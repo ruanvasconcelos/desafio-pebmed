@@ -21,7 +21,9 @@ class MedicalListRepository @Inject constructor(
         .getMedicalList()
         .map { rootList ->
             val itemVOList = extractCategoryAsItemAndtransformToItemVOList(rootList)
-            saveLocalItemList(itemVOList)
+            if (itemVOList.isNotEmpty()) {
+                saveLocalItemList(itemVOList)
+            }
             itemVOList
         }
         .onErrorResumeNext {

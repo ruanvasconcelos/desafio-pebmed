@@ -63,7 +63,7 @@ class MedicalListRepositoryTest : BaseUnitTest() {
         testObserver.assertValue {
             it.isEmpty()
         }
-        verify (exactly = 1) { medicalListRepository.saveLocalItemList(any()) }
+        verify (exactly = 0) { medicalListRepository.saveLocalItemList(any()) }
         verify (exactly = 0) { medicalListRepository.recoverLocalItemList() }
     }
 
