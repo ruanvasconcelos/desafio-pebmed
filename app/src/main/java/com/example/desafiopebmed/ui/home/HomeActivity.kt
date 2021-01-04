@@ -87,7 +87,7 @@ class HomeActivity : DaggerAppCompatActivity(), OnRecyclerViewListener.OnItemCli
         val itemClickedContentVO = medicalListAdapter.currentList[position]?.content
 
         val intent = Intent(this, DetailsActivity::class.java)
-        intent.putExtra(DetailsActivity.CONTENT_EXTRA, itemClickedContentVO)
+        intent.putExtra(DetailsActivity.CONTENT_ID_EXTRA, itemClickedContentVO?.id)
         startActivity(intent)
     }
 }
