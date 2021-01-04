@@ -21,7 +21,7 @@ class MedicalListViewModel @Inject constructor(
 
     fun loadMedicalList() =
         compositeDisposable.add(repository
-            .recoverMedicalList()
+            .loadMedicalList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {

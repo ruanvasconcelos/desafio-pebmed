@@ -1,23 +1,88 @@
 package com.example.desafiopebmed.repository
 
 import com.example.desafiopebmed.repository.vo.*
+import com.example.desafiopebmed.source.local.*
 import com.example.desafiopebmed.source.remote.data.Author
 import com.example.desafiopebmed.source.remote.data.Category
 import com.example.desafiopebmed.source.remote.data.Content
 import com.example.desafiopebmed.source.remote.data.Root
 import com.example.desafiopebmed.source.remote.http.WebServiceAPI
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 
-class MedicalListRepository @Inject constructor(private val webServiceAPI: WebServiceAPI) {
+class MedicalListRepository @Inject constructor(
+    private val webServiceAPI: WebServiceAPI,
+    private val database: Database,
+) {
 
-    fun recoverMedicalList(): Observable<List<ItemVO>> =
-        webServiceAPI
-            .getMedicalList()
-            .map {
-                transformToItemVOList(it)
-            }
+    fun loadMedicalList(): Observable<List<ItemVO>> = webServiceAPI
+        .getMedicalList()
+        .map { rootList ->
+            val itemVOList = extractCategoryAsItemAndtransformToItemVOList(rootList)
+            database.itemListDao().insertAll(
+                transformItemVOListToItemEntityList(itemVOList)
+            )
+            itemVOList
+        }
+        .onErrorResumeNext {
+            recoverLocalItemList()
+        }
+
+    fun recoverLocalItemList(): Observable<List<ItemVO>> = database
+        .itemListDao()
+        .getAll()
+        .subscribeOn(Schedulers.io())
+        .toObservable()
+        .map { itemEntityList ->
+            return@map transformItemEntityListToItemVOList(
+                itemEntityList
+            )
+        }
+        .onTerminateDetach()
+        .onErrorResumeNext { Observable.defer { Observable.just(emptyList()) } }
+
+    private fun transformItemEntityListToItemVOList(itemEntityList: List<ItemEntity>?): List<ItemVO> =
+        itemEntityList?.map { itemEntity ->
+            ItemVO(
+                category = CategoryVO(
+                    itemEntity.category?.categoryId,
+                    itemEntity.category?.categoryName
+                ),
+                content = ContentVO(
+                    itemEntity.content?.contentId,
+                    itemEntity.content?.contentName,
+                    itemEntity.content?.urlImage,
+                    itemEntity.content?.description,
+                    itemEntity.content?.authors?.map { authorEntity ->
+                        AuthorVO(authorEntity.authorName)
+                    }
+                ),
+                componentType = itemEntity.componentType
+            )
+        } ?: emptyList()
+
+    private fun transformItemVOListToItemEntityList(itemVOList: List<ItemVO>): List<ItemEntity> =
+        itemVOList.mapIndexed { index, itemVO ->
+            ItemEntity(
+                uid = index,
+                category = CategoryEntity(
+                    categoryId = itemVO.category?.id,
+                    categoryName = itemVO.category?.name
+                ),
+                content = ContentEntity(
+                    contentId = itemVO.content?.id,
+                    contentName = itemVO.content?.name,
+                    urlImage = itemVO.content?.urlImage,
+                    description = itemVO.content?.description,
+                    authors = itemVO.content?.authors?.map {
+                        AuthorEntity(it.name)
+                    }
+                ),
+                componentType = itemVO.componentType
+            )
+        }
 
     /**
      * Transforma o objeto de retorno do backend numa lista onde as categorias e demais itens
@@ -29,7 +94,7 @@ class MedicalListRepository @Inject constructor(private val webServiceAPI: WebSe
      * @param itemVOList Lista de itens que podem ser do tipo Título de agrupador ou Thumb do Grid
      * @param category Categoria retornada do backend
      */
-    private fun transformToItemVOList(roots: List<Root>?): List<ItemVO> {
+    private fun extractCategoryAsItemAndtransformToItemVOList(roots: List<Root>?): List<ItemVO> {
         val itemVOList = ArrayList<ItemVO>()
 
         roots?.map { root ->
@@ -61,7 +126,7 @@ class MedicalListRepository @Inject constructor(private val webServiceAPI: WebSe
     private fun isNewCategory(itemVOList: ArrayList<ItemVO>, category: Category?): Boolean {
         val categoryWeLookFor = itemVOList.find {
             it.componentType == ComponentType.HEADER_TITLE
-                && it.category?.id == category?.id
+                    && it.category?.id == category?.id
         }
         return categoryWeLookFor == null
     }
