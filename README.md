@@ -20,6 +20,7 @@ Abaixo estará indicado especificações técnicas e quais foram as principais b
 - Rx Android
 - Dagger
 - Glide
+- Room
 
 ## Autor
 - Ruan Vasconcelos
