@@ -37,6 +37,7 @@
 
     <style name="DetailsActivityDetailsContainer">
         <item name="android:layout_marginLeft">@dimen/spacing_sixteen</item>
+        <item name="android:layout_marginRight">@dimen/spacing_sixteen</item>
     </style>
 
     <style name="DetailsActivitySectionTitle">
