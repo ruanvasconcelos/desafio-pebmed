@@ -7,8 +7,6 @@ import retrofit2.http.Headers
 
 interface WebServiceAPI {
 
-    // 7 days cache
-    @Headers("Cache-Control: max-stale=604800")
     @GET("contents")
     fun getMedicalList(): Observable<List<Root>>
 }
