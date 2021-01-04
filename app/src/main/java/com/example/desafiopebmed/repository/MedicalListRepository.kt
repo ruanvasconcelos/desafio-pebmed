@@ -21,16 +21,20 @@ class MedicalListRepository @Inject constructor(
         .getMedicalList()
         .map { rootList ->
             val itemVOList = extractCategoryAsItemAndtransformToItemVOList(rootList)
-            database.itemListDao().insertAll(
-                transformItemVOListToItemEntityList(itemVOList)
-            )
+            saveLocalItemList(itemVOList)
             itemVOList
         }
         .onErrorResumeNext {
             recoverLocalItemList()
         }
 
-    fun recoverLocalItemList(): Observable<List<ItemVO>> = database
+    internal fun saveLocalItemList(itemVOList: List<ItemVO>) {
+        database.itemListDao().insertAll(
+            transformItemVOListToItemEntityList(itemVOList)
+        )
+    }
+
+    internal fun recoverLocalItemList(): Observable<List<ItemVO>> = database
         .itemListDao()
         .getAll()
         .subscribeOn(Schedulers.io())
