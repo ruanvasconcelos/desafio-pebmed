@@ -4,6 +4,9 @@ import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.desafiopebmed.BaseUnitTest
 import com.example.desafiopebmed.source.local.Database
+import com.example.desafiopebmed.source.remote.data.Category
+import com.example.desafiopebmed.source.remote.data.Content
+import com.example.desafiopebmed.source.remote.data.Root
 import com.example.desafiopebmed.source.remote.http.WebServiceAPI
 import io.mockk.spyk
 import io.mockk.verify
@@ -46,8 +49,8 @@ class MedicalListRepositoryTest : BaseUnitTest() {
                     && it.firstOrNull()?.category?.name?.equals("Cuidados Paliativos") == true
                     && it.firstOrNull()?.category?.id == 0
         }
-        verify (exactly = 1) { medicalListRepository.saveLocalItemList(any()) }
-        verify (exactly = 0) { medicalListRepository.recoverLocalItemList() }
+        verify(exactly = 1) { medicalListRepository.saveLocalItemList(any()) }
+        verify(exactly = 0) { medicalListRepository.recoverLocalItemList() }
     }
 
     @Test
@@ -63,8 +66,8 @@ class MedicalListRepositoryTest : BaseUnitTest() {
         testObserver.assertValue {
             it.isEmpty()
         }
-        verify (exactly = 0) { medicalListRepository.saveLocalItemList(any()) }
-        verify (exactly = 0) { medicalListRepository.recoverLocalItemList() }
+        verify(exactly = 0) { medicalListRepository.saveLocalItemList(any()) }
+        verify(exactly = 0) { medicalListRepository.recoverLocalItemList() }
     }
 
     @Test
@@ -75,7 +78,56 @@ class MedicalListRepositoryTest : BaseUnitTest() {
         val medicalListRepository = spyk(MedicalListRepository(webServiceAPI, databaseMockk))
         medicalListRepository.loadMedicalList().test()
 
-        verify (exactly = 1) { medicalListRepository.recoverLocalItemList() }
-        verify (exactly = 0) { medicalListRepository.saveLocalItemList(any()) }
+        verify(exactly = 1) { medicalListRepository.recoverLocalItemList() }
+        verify(exactly = 0) { medicalListRepository.saveLocalItemList(any()) }
+    }
+
+    @Test
+    fun testExtractCategoryAsItemAndTransformToItemVOListWithCategoriesAndContentList() {
+        val roots = ArrayList<Root>()
+        roots.add(
+            Root(
+                Category(1, "categoria 1"),
+                Content(0, "conteudo 1", "urlimage", "description")
+            )
+        )
+        roots.add(
+            Root(
+                Category(1, "categoria 1"),
+                Content(0, "conteudo 2", "urlimage", "description")
+            )
+        )
+        roots.add(
+            Root(
+                Category(2, "categoria 2"),
+                Content(0, "conteudo 3", "urlimage", "description")
+            )
+        )
+        roots.add(
+            Root(
+                Category(2, "categoria 2"),
+                Content(0, "conteudo 4", "urlimage", "description")
+            )
+        )
+
+        val medicalListRepository = spyk(MedicalListRepository(webServiceAPI, databaseMockk))
+        val newList = medicalListRepository.extractCategoryAsItemAndTransformToItemVOList(roots)
+        assert(newList.size == 6)
+    }
+
+    @Test
+    fun testExtractCategoryAsItemAndTransformToItemVOListWithEmptyList() {
+        val roots = ArrayList<Root>()
+
+        val medicalListRepository = spyk(MedicalListRepository(webServiceAPI, databaseMockk))
+        val newList = medicalListRepository.extractCategoryAsItemAndTransformToItemVOList(roots)
+        assert(newList.isEmpty())
+    }
+
+    @Test
+    fun testExtractCategoryAsItemAndTransformToItemVOListWithNull() {
+        val medicalListRepository = spyk(MedicalListRepository(webServiceAPI, databaseMockk))
+        val newList = medicalListRepository.extractCategoryAsItemAndTransformToItemVOList(null)
+        assert(newList.isEmpty())
     }
 }

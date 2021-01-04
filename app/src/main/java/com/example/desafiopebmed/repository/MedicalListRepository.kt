@@ -20,7 +20,7 @@ class MedicalListRepository @Inject constructor(
     fun loadMedicalList(): Observable<List<ItemVO>> = webServiceAPI
         .getMedicalList()
         .map { rootList ->
-            val itemVOList = extractCategoryAsItemAndtransformToItemVOList(rootList)
+            val itemVOList = extractCategoryAsItemAndTransformToItemVOList(rootList)
             if (itemVOList.isNotEmpty()) {
                 saveLocalItemList(itemVOList)
             }
@@ -100,7 +100,7 @@ class MedicalListRepository @Inject constructor(
      * @param itemVOList Lista de itens que podem ser do tipo Título de agrupador ou Thumb do Grid
      * @param category Categoria retornada do backend
      */
-    private fun extractCategoryAsItemAndtransformToItemVOList(roots: List<Root>?): List<ItemVO> {
+    internal fun extractCategoryAsItemAndTransformToItemVOList(roots: List<Root>?): List<ItemVO> {
         val itemVOList = ArrayList<ItemVO>()
 
         roots?.map { root ->
