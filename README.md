@@ -3,6 +3,8 @@
 # MedBook
 Um app acessível de doenças e suas informações.
 
+<img src="https://github.com/ruanvasconcelos/desafio-pebmed/blob/master/print/home.jpg" width="200" height="400" align="left" />
+<img src="https://github.com/ruanvasconcelos/desafio-pebmed/blob/master/print/details.jpg" width="200" height="400" />
 
 ## Informações Técnicas
 Abaixo estará indicado especificações técnicas e quais foram as principais bibliotecas usadas no projeto.
